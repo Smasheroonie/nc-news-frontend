@@ -38,8 +38,8 @@ export default function VotesCounter({ votes, articleId }) {
         onClick={handleVote}
         className={
           !voted
-            ? "shadow-md bg-gray-300 rounded-full p-1 hover:bg-gray-400 cursor-pointer"
-            : "shadow-md bg-green-300 rounded-full p-1 hover:bg-green-400 cursor-pointer"
+            ? "min-w-24 shadow-sm bg-gray-300 rounded-xl p-1 hover:bg-green-400 active:bg-green-300 cursor-pointer"
+            : "min-w-24 shadow-sm bg-green-300 rounded-xl p-1 hover:bg-green-400 active:bg-gray-200 cursor-pointer"
         }
       >
         Votes: <span className="font-semibold">{votesCount}</span>{" "}

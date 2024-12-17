@@ -31,6 +31,17 @@ export const fetchComments = (articleId) => {
     .catch((err) => console.log(err));
 };
 
+export const postComment = (username, comment, articleId) => {
+  return newsApi
+    .post(`/articles/${articleId}/comments`, {
+      username: username,
+      body: comment,
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const patchVotes = (votesCount, articleId) => {
   return newsApi
     .patch(`/articles/${articleId}`, { inc_votes: votesCount })

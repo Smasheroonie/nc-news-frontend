@@ -36,7 +36,7 @@ export default function SingleArticle() {
         src={article.article_img_url}
         className="w-2/3 min-w-96 max-w-[700px]"
       />
-      <p className="p-8 min-w-[450px] max-w-[1200px]">{article.body}</p>
+      <p className="p-8 pb-4 min-w-[450px] max-w-[1200px]">{article.body}</p>
       <CommentsSection articleId={article.article_id} />
     </article>
   );
