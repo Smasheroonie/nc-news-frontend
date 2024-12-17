@@ -20,6 +20,7 @@ export default function CommentsSection({ articleId }) {
   }, [submitted]);
 
   const handleChange = ({ target: { value } }) => {
+    setSubmitted(false);
     setNewComment(value);
   };
 
@@ -35,7 +36,6 @@ export default function CommentsSection({ articleId }) {
         console.log(err);
         setError("Comment unsuccessful, try again.");
       });
-    setSubmitted(false);
   };
 
   return loading ? (
@@ -58,6 +58,7 @@ export default function CommentsSection({ articleId }) {
           </button>
         </label>
       </form>
+      {!submitted ? null : "Comment Submitted!"}
       <ul>
         {comments.map((comment) => {
           return <Comment key={comment.comment_id} comment={comment} />;
