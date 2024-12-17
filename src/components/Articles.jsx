@@ -17,7 +17,7 @@ export default function Articles() {
   return loading ? (
     <Loading />
   ) : (
-    <section className="w-3/5 m-auto">
+    <section className="">
       <ArticlesList articles={articles} />
     </section>
   );
