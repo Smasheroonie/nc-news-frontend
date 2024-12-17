@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
-import { fetchArticleById } from "../../utils/api";
+import { fetchArticleById, fetchComments } from "../../utils/api";
 import { useParams } from "react-router";
 import Loading from "./Loading";
+import Comment from "./Comment";
 
 export default function SingleArticle() {
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
+  const [comments, setComments] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchArticleById(article_id).then((articleData) => {
       setArticle(articleData);
+    });
+    fetchComments(article_id).then((commentsData) => {
+      setComments(commentsData);
       setLoading(false);
     });
   }, []);
+
   return loading ? (
     <Loading />
   ) : (
@@ -32,7 +38,12 @@ export default function SingleArticle() {
         src={article.article_img_url}
         className="w-2/3 min-w-96 max-w-[700px]"
       />
-      <p className="w-1/2 p-8 min-w-[450px] max-w-[1200px]">{article.body}</p>
+      <p className="p-8 min-w-[450px] max-w-[1200px]">{article.body}</p>
+      <ul>
+        {comments.map((comment) => {
+          return <Comment key={comment.comment_id} comment={comment} />;
+        })}
+      </ul>
     </article>
   );
 }
