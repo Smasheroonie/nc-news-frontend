@@ -1,4 +1,20 @@
-export default function Comment({ comment }) {
+import { useContext, useState } from "react";
+import { UserContext } from "../context/User";
+import { deleteComment } from "../../utils/api";
+
+export default function Comment({ comment, setDeleted }) {
+  const { user, setUser } = useContext(UserContext);
+  const [error, setError] = useState(null);
+
+  const handleClick = ({ target: { value } }) => {
+    setError(null);
+    deleteComment(value).catch((err) => {
+      console.log(err);
+      setError("Comment not deleted, try again.");
+    });
+    setDeleted(true);
+  };
+
   return (
     <section className="border p-2 m-1 min-w-[450px] max-w-[1000px]">
       <div>
@@ -6,9 +22,21 @@ export default function Comment({ comment }) {
         <span className="font-light"> - {comment.created_at.slice(0, 10)}</span>
       </div>
       <p className="p-2">{comment.body}</p>
-      <p className="font-light">
-        Votes: <span className="font-semibold">{comment.votes}</span>
-      </p>
+      <div className="flex justify-between px-1">
+        <p className="font-light">
+          Votes: <span className="font-semibold">{comment.votes}</span>
+        </p>
+        {!error ? null : <p>{error}</p>}
+        {comment.author === user ? (
+          <button
+            value={comment.comment_id}
+            onClick={handleClick}
+            className="bg-red-200 rounded-lg p-0.5 hover:bg-red-500 active:bg-red-400"
+          >
+            DELETE
+          </button>
+        ) : null}
+      </div>
     </section>
   );
 }
