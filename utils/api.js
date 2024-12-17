@@ -21,3 +21,12 @@ export const fetchArticleById = (articleId) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const fetchComments = (articleId) => {
+  return newsApi
+    .get(`/articles/${articleId}/comments`)
+    .then(({ data: { comments } }) => {
+      return comments;
+    })
+    .catch((err) => console.log(err));
+};
