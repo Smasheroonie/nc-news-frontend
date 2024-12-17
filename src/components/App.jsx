@@ -11,7 +11,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Articles />} />
-        <Route path="/:article_id" element={<SingleArticle />} />
+        <Route path="articles/:article_id" element={<SingleArticle />} />
       </Routes>
 
       <footer className="font-semibold static">All rights reserved.</footer>

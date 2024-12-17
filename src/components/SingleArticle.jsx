@@ -3,6 +3,7 @@ import { fetchArticleById, fetchComments } from "../../utils/api";
 import { useParams } from "react-router";
 import Loading from "./Loading";
 import Comment from "./Comment";
+import VotesCounter from "./VotesCounter";
 
 export default function SingleArticle() {
   const { article_id } = useParams();
@@ -31,8 +32,9 @@ export default function SingleArticle() {
         <p>By: {article.author}</p>
         <p>Topic: {article.topic}</p>
       </div>
-      <div className="flex flex-row w-2/5 justify-start pb-3 min-w-96 max-w-[700px]">
+      <div className="flex flex-row w-2/5 justify-between pb-3 min-w-96 max-w-[700px]">
         <p>Posted: {article.created_at}</p>
+        <VotesCounter votes={article.votes} articleId={article.article_id} />
       </div>
       <img
         src={article.article_img_url}
