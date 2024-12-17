@@ -42,6 +42,12 @@ export const postComment = (username, comment, articleId) => {
     });
 };
 
+export const deleteComment = (commentId) => {
+  return newsApi.delete(`/comments/${commentId}`).catch((err) => {
+    return err;
+  });
+};
+
 export const patchVotes = (votesCount, articleId) => {
   return newsApi
     .patch(`/articles/${articleId}`, { inc_votes: votesCount })

@@ -10,14 +10,16 @@ export default function CommentsSection({ articleId }) {
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [deleted, setDeleted] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    setDeleted(false);
     fetchComments(articleId).then((commentsData) => {
       setComments(commentsData);
       setLoading(false);
     });
-  }, [submitted]);
+  }, [submitted, deleted]);
 
   const handleChange = ({ target: { value } }) => {
     setSubmitted(false);
@@ -58,10 +60,17 @@ export default function CommentsSection({ articleId }) {
           </button>
         </label>
       </form>
-      {!submitted ? null : "Comment Submitted!"}
+      {!submitted ? null : <p>Comment Submitted!</p>}
+      {!error ? null : <p>{error}</p>}
       <ul>
         {comments.map((comment) => {
-          return <Comment key={comment.comment_id} comment={comment} />;
+          return (
+            <Comment
+              key={comment.comment_id}
+              comment={comment}
+              setDeleted={setDeleted}
+            />
+          );
         })}
       </ul>
     </>
