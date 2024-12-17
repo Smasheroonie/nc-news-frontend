@@ -4,7 +4,7 @@ export default function ArticleCard({ article }) {
   return (
     <div className="flex flex-col flex-wrap items-start justify-start m-auto my-2 w-4/6 min-w-96 max-w-[748px]">
       <Link
-        to={"/" + article.article_id}
+        to={"/articles/" + article.article_id}
         className="cursor-pointer border border-black p-6 pb-4 h-[678px]"
       >
         <div className="justify-start pb-2">
