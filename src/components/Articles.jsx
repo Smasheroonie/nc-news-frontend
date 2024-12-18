@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import Loading from "./Loading";
 import { fetchArticles } from "../../utils/api";
 import ArticlesList from "./ArticlesList";
+import SortDropdown from "./SortDropdown";
 // import { ViewProvider } from "../context/View";
 
 export default function ArticlesByTopic() {
@@ -22,6 +23,7 @@ export default function ArticlesByTopic() {
     <Loading />
   ) : (
     <section className="text-center">
+      <SortDropdown />
       {/* <ViewProvider> */}
       {topic ? <h2 className="font-bold text-2xl pt-2 pb-1 underline">{topic.toUpperCase()}</h2> : null}
       <ArticlesList articles={articles} />
