@@ -17,6 +17,7 @@ export default function Header() {
   const handleClick = (e) => {
     e.preventDefault();
     setUser(login);
+    
   };
 
   return (

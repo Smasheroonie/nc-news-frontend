@@ -9,7 +9,7 @@ export default function ArticleCard({ article }) {
       >
         <div className="justify-start pb-2">
           <h1 className="font-bold text-2xl pb-1">{article.title}</h1>
-          <p>Topic: {article.topic}</p>
+          <p className="rounded-lg bg-sky-200 m-auto w-fit px-1 py-0.5">{article.topic}</p>
         </div>
 
         <img
