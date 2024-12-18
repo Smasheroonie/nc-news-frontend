@@ -1,17 +1,17 @@
 import { useContext } from "react";
 import ArticleCard from "./ArticleCard";
-import { ViewContext } from "../context/View";
+// import { ViewContext } from "../context/View";
 
 export default function ArticlesList({ articles }) {
-  const { view, setView } = useContext(ViewContext);
-  const toggleView = () => {
-    setView((currView) => {
-      return currView === "List" ? "Grid" : "List";
-    });
-  };
+  // const { view, setView } = useContext(ViewContext);
+  // const toggleView = () => {
+  //   setView((currView) => {
+  //     return currView === "List" ? "Grid" : "List";
+  //   });
+  // };
   return (
     <>
-      <label className="flex justify-center items-center cursor-pointer m-auto mt-2 w-fit">
+      {/* <label className="flex justify-center items-center cursor-pointer m-auto mt-2 w-fit">
         <input
           type="checkbox"
           value=""
@@ -22,14 +22,15 @@ export default function ArticlesList({ articles }) {
         <span className="ms-3 text-sm font-medium text-gray-900">
           {view} View
         </span>
-      </label>
+      </label> */}
       <div className="">
         <ul
-          className={
-            view === "List"
-              ? "flex flex-col m-auto items-center justify-center"
-              : "flex flex-row flex-wrap"
-          }
+          className="flex flex-col m-auto items-center justify-center"
+          // className={
+          //   view === "List"
+          //     ? "flex flex-col m-auto items-center justify-center"
+          //     : "flex flex-row flex-wrap"
+          // }
         >
           {articles.map((article) => {
             return <ArticleCard key={article.article_id} article={article} />;
@@ -39,3 +40,5 @@ export default function ArticlesList({ articles }) {
     </>
   );
 }
+
+// view commented out for reworking later

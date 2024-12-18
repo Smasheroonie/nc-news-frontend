@@ -5,7 +5,7 @@ import { fetchComments, postComment } from "../../utils/api";
 import { UserContext } from "../context/User";
 
 export default function CommentsSection({ articleId }) {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [comments, setComments] = useState({});
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
@@ -55,13 +55,13 @@ export default function CommentsSection({ articleId }) {
           >
             {newComment}
           </textarea>
-          <button className="shadow-sm bg-gray-300 rounded-xl p-1 hover:bg-green-400 active:bg-green-300 cursor-pointer max-h-[44px]">
+          <button className="shadow-sm bg-gray-300 rounded-xl p-1 hover:bg-green-400 active:bg-green-300 cursor-pointer max-h-[44px] hover:transition-colors ease-in-out duration-200">
             Submit
           </button>
         </label>
       </form>
       {!submitted ? null : <p>Comment Submitted!</p>}
-      {!error ? null : <p>{error}</p>}
+      {!error ? null : <p className="text-red-600">{error}</p>}
       <ul>
         {comments.map((comment) => {
           return (

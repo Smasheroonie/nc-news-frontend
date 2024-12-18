@@ -3,7 +3,7 @@ import { UserContext } from "../context/User";
 import { deleteComment } from "../../utils/api";
 
 export default function Comment({ comment, setDeleted }) {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [error, setError] = useState(null);
 
   const handleClick = ({ target: { value } }) => {
@@ -26,12 +26,12 @@ export default function Comment({ comment, setDeleted }) {
         <p className="font-light">
           Votes: <span className="font-semibold">{comment.votes}</span>
         </p>
-        {!error ? null : <p>{error}</p>}
+        {!error ? null : <p className="text-red-600">{error}</p>}
         {comment.author === user ? (
           <button
             value={comment.comment_id}
             onClick={handleClick}
-            className="bg-red-200 rounded-lg p-0.5 hover:bg-red-500 active:bg-red-400"
+            className="bg-red-200 rounded-lg p-0.5 hover:bg-red-500 active:bg-red-400 hover:transition-colors ease-in-out duration-200"
           >
             DELETE
           </button>
