@@ -4,22 +4,18 @@ const newsApi = axios.create({
   baseURL: "https://nc-news-dd8e.onrender.com/api",
 });
 
-export const fetchArticles = () => {
+export const fetchArticles = (topic) => {
   return newsApi
-    .get("/articles")
+    .get("/articles", { params: { topic: topic } })
     .then(({ data: { articles } }) => {
       return articles;
-    })
-    .catch((err) => console.log(err));
+    });
 };
 
 export const fetchArticleById = (articleId) => {
-  return newsApi
-    .get(`/articles/${articleId}`)
-    .then(({ data: { article } }) => {
-      return article;
-    })
-    .catch((err) => console.log(err));
+  return newsApi.get(`/articles/${articleId}`).then(({ data: { article } }) => {
+    return article;
+  });
 };
 
 export const fetchComments = (articleId) => {
@@ -27,31 +23,26 @@ export const fetchComments = (articleId) => {
     .get(`/articles/${articleId}/comments`)
     .then(({ data: { comments } }) => {
       return comments;
-    })
-    .catch((err) => console.log(err));
+    });
 };
 
 export const postComment = (username, comment, articleId) => {
-  return newsApi
-    .post(`/articles/${articleId}/comments`, {
-      username: username,
-      body: comment,
-    })
-    .catch((err) => {
-      return err;
-    });
-};
-
-export const deleteComment = (commentId) => {
-  return newsApi.delete(`/comments/${commentId}`).catch((err) => {
-    return err;
+  return newsApi.post(`/articles/${articleId}/comments`, {
+    username: username,
+    body: comment,
   });
 };
 
+export const deleteComment = (commentId) => {
+  return newsApi.delete(`/comments/${commentId}`);
+};
+
 export const patchVotes = (votesCount, articleId) => {
-  return newsApi
-    .patch(`/articles/${articleId}`, { inc_votes: votesCount })
-    .catch((err) => {
-      return err;
-    });
+  return newsApi.patch(`/articles/${articleId}`, { inc_votes: votesCount });
+};
+
+export const fetchTopics = () => {
+  return newsApi.get("/topics").then(({ data: { topics } }) => {
+    return topics;
+  });
 };

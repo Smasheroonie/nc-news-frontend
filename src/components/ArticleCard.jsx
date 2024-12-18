@@ -5,7 +5,7 @@ export default function ArticleCard({ article }) {
     <div className="flex flex-col flex-wrap items-start justify-start m-auto my-2 w-4/6 min-w-96 max-w-[748px]">
       <Link
         to={"/articles/" + article.article_id}
-        className="cursor-pointer border border-black p-6 pb-4 h-[678px]"
+        className="cursor-pointer border border-black p-6 pb-4 h-[700px]"
       >
         <div className="justify-start pb-2">
           <h1 className="font-bold text-2xl pb-1">{article.title}</h1>
