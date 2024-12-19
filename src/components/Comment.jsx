@@ -9,7 +9,6 @@ export default function Comment({ comment, setDeleted }) {
   const handleClick = ({ target: { value } }) => {
     setError(null);
     deleteComment(value).catch((err) => {
-      console.log(err);
       setError("Comment not deleted, try again.");
     });
     setDeleted(true);

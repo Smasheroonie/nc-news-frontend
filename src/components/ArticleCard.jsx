@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { formatDate } from "../../utils/utils";
 
 export default function ArticleCard({ article }) {
   return (
@@ -9,7 +10,9 @@ export default function ArticleCard({ article }) {
       >
         <div className="justify-start pb-2">
           <h1 className="font-bold text-2xl pb-1">{article.title}</h1>
-          <p className="rounded-lg bg-sky-200 m-auto w-fit px-1 py-0.5">{article.topic}</p>
+          <p className="rounded-lg bg-sky-200 m-auto w-fit px-1 py-0.5">
+            {article.topic}
+          </p>
         </div>
 
         <img
@@ -20,7 +23,7 @@ export default function ArticleCard({ article }) {
 
         <div className="flex flex-row flex-wrap w-full m-1 pt-2.5 pr-2.5 place-content-between">
           <p>Author: {article.author}</p>
-          <p>Posted: {article.created_at.slice(0, 10)}</p>
+          <p>Posted: {formatDate(article.created_at)}</p>
         </div>
         <div className="flex flex-row flex-wrap w-full m-1 pr-2.5 place-content-between">
           <p>{article.votes} votes</p>
