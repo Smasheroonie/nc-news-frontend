@@ -10,7 +10,7 @@ export default function ArticlesList({ articles }) {
   //   });
   // };
   return (
-    <>
+    <section>
       {/* <label className="flex justify-center items-center cursor-pointer m-auto mt-2 w-fit">
         <input
           type="checkbox"
@@ -23,7 +23,7 @@ export default function ArticlesList({ articles }) {
           {view} View
         </span>
       </label> */}
-      <div className="">
+      <div>
         <ul
           className="flex flex-col m-auto items-center justify-center"
           // className={
@@ -37,7 +37,7 @@ export default function ArticlesList({ articles }) {
           })}
         </ul>
       </div>
-    </>
+    </section>
   );
 }
 

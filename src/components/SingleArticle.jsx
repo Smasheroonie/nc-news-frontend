@@ -34,23 +34,23 @@ export default function SingleArticle() {
   ) : error ? (
     <ErrorPage status={error.status} msg={error.msg} />
   ) : (
-    <article className="border border-black flex flex-col items-center m-auto py-10 px-2 gap-2 min-h-dvh">
-      <h1 className="font-bold text-3xl pb-1 min-w-96 max-w-[750px]">
-        {article.title}
-      </h1>
-      <div className="flex flex-row w-2/5 justify-between min-w-96 max-w-[700px]">
+    <article className="flex flex-col items-center m-auto py-10 px-2 gap-2 min-h-dvh">
+      <h1 className="font-bold text-3xl pb-1 max-w-[750px]">{article.title}</h1>
+      <hr className="w-1/3"/>
+      <div className="flex max-w-[750px] flex-row flex-wrap w-full m-1 pr-2.5 justify-between">
         <p>By: {article.author}</p>
         <p>Topic: {article.topic}</p>
       </div>
-      <div className="flex flex-row w-2/5 justify-between pb-3 min-w-96 max-w-[700px]">
+      <div className="flex max-w-[750px] flex-row flex-wrap w-full m-1 pr-2.5 justify-between">
         <p>Posted: {formatDate(article.created_at)}</p>
         <VotesCounter votes={article.votes} articleId={article.article_id} />
       </div>
       <img
         src={article.article_img_url}
-        className="w-2/3 min-w-96 max-w-[700px]"
+        className="w-2/3 min-w-80 max-w-[700px]"
       />
-      <p className="p-8 pb-4 min-w-[450px] max-w-[1200px]">{article.body}</p>
+      <p className="my-4 max-w-[1000px]">{article.body}</p>
+      <hr className="w-1/3"/>
       <CommentsSection articleId={article.article_id} />
     </article>
   );

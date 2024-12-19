@@ -8,7 +8,7 @@ import ErrorPage from "./ErrorPage";
 
 function App() {
   return (
-    <main className="bg-neutral-100 h-auto">
+    <main className="bg-neutral-100 h-auto font-['Verdana']">
       <Header />
       <SidebarNav />
       <ScrollToTop />
@@ -20,7 +20,9 @@ function App() {
         <Route path="topics/:topic" element={<Articles />} />
       </Routes>
 
-      <footer className="font-semibold static">All rights reserved.</footer>
+      <footer className="border-t border-black font-semibold static m-auto p-2 bg-neutral-100">
+        <p>All rights reserved.</p>
+      </footer>
     </main>
   );
 }

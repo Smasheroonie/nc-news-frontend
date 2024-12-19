@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../context/User";
 import { deleteComment } from "../../utils/api";
+import { formatDate } from "../../utils/utils";
 
 export default function Comment({ comment, setDeleted }) {
   const { user } = useContext(UserContext);
@@ -15,10 +16,10 @@ export default function Comment({ comment, setDeleted }) {
   };
 
   return (
-    <section className="border p-2 m-1 min-w-[450px] max-w-[1000px]">
+    <section className="border border-neutral-400 p-2 m-1 min-w-72 max-w-[1000px]">
       <div>
         <span className="font-semibold pb-2">{comment.author}</span>
-        <span className="font-light"> - {comment.created_at.slice(0, 10)}</span>
+        <span className="font-light"> - {formatDate(comment.created_at)}</span>
       </div>
       <p className="p-2">{comment.body}</p>
       <div className="flex justify-between px-1">

@@ -49,7 +49,7 @@ export default function CommentsSection({ articleId }) {
   return loading ? (
     <Loading />
   ) : (
-    <>
+    <div className="flex flex-col items-center">
       <form onSubmit={handleSubmit}>
         {user ? (
           <label className="flex gap-2">
@@ -59,7 +59,7 @@ export default function CommentsSection({ articleId }) {
               value={newComment}
               placeholder="Add a comment"
               required
-              className="border rounded-xl py-1 px-2 m-auto min-h-[44px] max-h-96 min-w-[390px] max-w-[1000px]"
+              className="border rounded-xl py-1 px-2 m-auto mb-1 h-[44px] min-h-[44px] max-h-96 min-w-56 max-w-[1000px]"
             >
               {newComment}
             </textarea>
@@ -71,7 +71,7 @@ export default function CommentsSection({ articleId }) {
             </button>
           </label>
         ) : (
-          <p>Log in to leave a comment</p>
+          <p className="mb-1">Log in to leave a comment</p>
         )}
       </form>
       {!submitted ? null : <p>Comment Submitted!</p>}
@@ -87,6 +87,6 @@ export default function CommentsSection({ articleId }) {
           );
         })}
       </ul>
-    </>
+    </div>
   );
 }

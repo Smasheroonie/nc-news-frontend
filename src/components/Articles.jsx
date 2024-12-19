@@ -4,6 +4,7 @@ import Loading from "./Loading";
 import { fetchArticles } from "../../utils/api";
 import ArticlesList from "./ArticlesList";
 import ErrorPage from "./ErrorPage";
+
 // import { ViewProvider } from "../context/View";
 
 export default function ArticlesByTopic() {
@@ -55,36 +56,53 @@ export default function ArticlesByTopic() {
   ) : error ? (
     <ErrorPage status={error.status} msg={error.msg} />
   ) : (
-    <section className="text-center m-2">
-      <label id="sort-by-select">
-        <span className="px-1">Sort By</span>
-        <select name="sort_by" value={sort_by} onChange={handleSortChange}>
-          <option value="created_at">Date (default)</option>
-          <option value="comment_count">Comment Count</option>
-          <option value="votes">Votes</option>
-        </select>
-      </label>
-      <label id="order-select">
-        <span className="px-1">Order</span>
-        <select name="order" value={order} onChange={handleOrderChange}>
-          <option value="desc">Desc (default)</option>
-          <option value="asc">Asc</option>
-        </select>
-      </label>
-      <button
-        onClick={handleReset}
-        className="px-1 mx-2 text-base font-normal bg-blue-300 rounded-lg hover:bg-blue-400 active:bg-blue-200 hover:transition-colors ease-in-out duration-200"
-      >
-        Reset Filters
-      </button>
-      {/* <ViewProvider> */}
-      {topic ? (
-        <h2 className="font-bold text-2xl pt-2 pb-1 underline">
-          {topic.toUpperCase()}
-        </h2>
-      ) : null}
-      <ArticlesList articles={articles} />
-      {/* </ViewProvider> */}
+    <section className="flex justify-center">
+      <div className="text-center m-2 w-4/6">
+        <div className="sm:block flex flex-col justify-center gap-2">
+          <div className="flex flex-row justify-center gap-2">
+            <label id="sort-by-select">
+              <span className="px-1">Sort By</span>
+              <select
+                name="sort_by"
+                value={sort_by}
+                onChange={handleSortChange}
+                className="h-8 sm:h-auto"
+              >
+                <option value="created_at">Date (default)</option>
+                <option value="comment_count">Comment Count</option>
+                <option value="votes">Votes</option>
+              </select>
+            </label>
+            <label id="order-select">
+              <span className="px-1">Order</span>
+              <select
+                name="order"
+                value={order}
+                onChange={handleOrderChange}
+                className="h-8 sm:h-auto"
+              >
+                <option value="desc">Desc (default)</option>
+                <option value="asc">Asc</option>
+              </select>
+            </label>
+          </div>
+          <button
+            onClick={handleReset}
+            className="m-auto px-1 h-10 sm:mt-1 sm:h-auto sm:mx-2 text-base font-normal bg-blue-300 rounded-lg hover:bg-blue-400 active:bg-blue-200 hover:transition-colors ease-in-out duration-200"
+          >
+            Reset Filters
+          </button>
+        </div>
+        <hr className="mt-2"></hr>
+        {/* <ViewProvider> */}
+        {topic ? (
+          <h2 className="font-bold text-2xl pt-2 pb-1 underline">
+            {topic.toUpperCase()}
+          </h2>
+        ) : null}
+        <ArticlesList articles={articles} />
+        {/* </ViewProvider> */}
+      </div>
     </section>
   );
 }

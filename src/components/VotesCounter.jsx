@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { patchVotes } from "../../utils/api";
+import { GoThumbsup } from "react-icons/go";
 
 export default function VotesCounter({ votes, articleId }) {
   const [votesCount, setVotesCount] = useState(0);
@@ -33,19 +34,20 @@ export default function VotesCounter({ votes, articleId }) {
   };
 
   return (
-    <>
+    <div className="flex flex-row gap-2">
       {error ? <p className="text-red-600">{error}</p> : null}
-      <button
-        onClick={handleVote}
-        className={
-          !voted
-            ? "min-w-24 shadow-sm bg-gray-300 rounded-xl p-1 hover:bg-green-400 active:bg-green-300 hover:transition-colors ease-in-out duration-200 cursor-pointer"
-            : "min-w-24 shadow-sm bg-green-300 rounded-xl p-1 hover:bg-green-400 active:bg-gray-200 hover:transition-colors ease-in-out duration-200 cursor-pointer"
-        }
-      >
-        Votes: <span className="font-semibold">{votesCount}</span>{" "}
-        {!voted ? "+" : "-"}
+      <button onClick={handleVote}>
+        <GoThumbsup
+          className={
+            !voted
+              ? "size-8 hover:fill-green-600 active:fill-green-400"
+              : "size-8 fill-green-600 active:fill-green-400"
+          }
+        />
       </button>
-    </>
+      <p>
+        Votes: <span className="font-semibold">{votesCount}</span>
+      </p>
+    </div>
   );
 }
