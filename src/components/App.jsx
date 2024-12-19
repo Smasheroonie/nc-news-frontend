@@ -4,6 +4,7 @@ import SingleArticle from "./SingleArticle";
 import Header from "./Header";
 import ScrollToTop from "./ScrollToTop";
 import SidebarNav from "./SidebarNav";
+import ErrorPage from "./ErrorPage";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <SidebarNav />
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Articles />} />
+        <Route path="*" element={<ErrorPage />} />
+        <Route path="/articles" element={<Articles />} />
         <Route path="articles/:article_id" element={<SingleArticle />} />
         <Route path="topics/:topic" element={<Articles />} />
       </Routes>

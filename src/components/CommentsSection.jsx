@@ -14,6 +14,7 @@ export default function CommentsSection({ articleId }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    setError(null);
     setDeleted(false);
     fetchComments(articleId).then((commentsData) => {
       setComments(commentsData);
@@ -22,21 +23,26 @@ export default function CommentsSection({ articleId }) {
   }, [submitted, deleted]);
 
   const handleChange = ({ target: { value } }) => {
+    setError(null);
     setSubmitted(false);
     setNewComment(value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const submitButton = e.target[1];
+    submitButton.disabled = true;
     setError(null);
     postComment(user, newComment, articleId)
       .then(() => {
         setNewComment("");
         setSubmitted(true);
+        submitButton.disabled = false;
       })
       .catch((err) => {
-        console.log(err);
+        setSubmitted(false);
         setError("Comment unsuccessful, try again.");
+        submitButton.disabled = false;
       });
   };
 
@@ -45,20 +51,28 @@ export default function CommentsSection({ articleId }) {
   ) : (
     <>
       <form onSubmit={handleSubmit}>
-        <label className="flex gap-2">
-          <textarea
-            onChange={handleChange}
-            value={newComment}
-            placeholder="Add a comment"
-            required
-            className="border rounded-xl py-1 px-2 m-auto min-h-[44px] max-h-96 min-w-[390px] max-w-[1000px]"
-          >
-            {newComment}
-          </textarea>
-          <button className="shadow-sm bg-gray-300 rounded-xl p-1 hover:bg-green-400 active:bg-green-300 cursor-pointer max-h-[44px] hover:transition-colors ease-in-out duration-200">
-            Submit
-          </button>
-        </label>
+        {user ? (
+          <label className="flex gap-2">
+            <textarea
+              id="comment-input"
+              onChange={handleChange}
+              value={newComment}
+              placeholder="Add a comment"
+              required
+              className="border rounded-xl py-1 px-2 m-auto min-h-[44px] max-h-96 min-w-[390px] max-w-[1000px]"
+            >
+              {newComment}
+            </textarea>
+            <button
+              type="submit"
+              className="shadow-sm bg-gray-300 rounded-xl p-1 hover:bg-green-400 active:bg-green-300 cursor-pointer max-h-[44px] hover:transition-colors ease-in-out duration-200"
+            >
+              Submit
+            </button>
+          </label>
+        ) : (
+          <p>Log in to leave a comment</p>
+        )}
       </form>
       {!submitted ? null : <p>Comment Submitted!</p>}
       {!error ? null : <p className="text-red-600">{error}</p>}

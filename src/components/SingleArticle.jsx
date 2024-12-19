@@ -4,21 +4,35 @@ import { useParams } from "react-router";
 import Loading from "./Loading";
 import VotesCounter from "./VotesCounter";
 import CommentsSection from "./CommentsSection";
+import { formatDate } from "../../utils/utils";
+import ErrorPage from "./ErrorPage";
 
 export default function SingleArticle() {
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchArticleById(article_id).then((articleData) => {
-      setArticle(articleData);
-      setLoading(false);
-    });
+    setError(null);
+    fetchArticleById(article_id)
+      .then((articleData) => {
+        setArticle(articleData);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError({
+          status: err.response.status,
+          msg: `Article: ${err.response.data.msg}`,
+        });
+      });
   }, []);
 
   return loading ? (
     <Loading />
+  ) : error ? (
+    <ErrorPage status={error.status} msg={error.msg} />
   ) : (
     <article className="border border-black flex flex-col items-center m-auto py-10 px-2 gap-2 min-h-dvh">
       <h1 className="font-bold text-3xl pb-1 min-w-96 max-w-[750px]">
@@ -29,7 +43,7 @@ export default function SingleArticle() {
         <p>Topic: {article.topic}</p>
       </div>
       <div className="flex flex-row w-2/5 justify-between pb-3 min-w-96 max-w-[700px]">
-        <p>Posted: {article.created_at}</p>
+        <p>Posted: {formatDate(article.created_at)}</p>
         <VotesCounter votes={article.votes} articleId={article.article_id} />
       </div>
       <img
