@@ -8,18 +8,34 @@ import ArticlesList from "./ArticlesList";
 export default function ArticlesByTopic() {
   const { topic } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const sortBy = searchParams.get("sort_by");
-  const order = searchParams.get("order");
+  const [sort_by, setSortBy] = useState(searchParams.get("sort_by") || "created_at");
+  const [order, setOrder] = useState(searchParams.get("order") || "desc");
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    fetchArticles(topic, sortBy, order).then((articles) => {
-      setArticles(articles);
-      setLoading(false);
-    });
-  }, [topic, sortBy, order]);
+    fetchArticles(topic, sort_by, order)
+      .then((articles) => {
+        setArticles(articles);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching articles:", err);
+        setLoading(false);
+      });
+  }, [topic, sort_by, order]);
+
+  function handleSortChange({ target: { value } }) {
+    console.log(value)
+    setSortBy(value);
+    setSearchParams({ sort_by: value, order });
+  }
+
+  function handleOrderChange({ target: { value } }) {
+    setOrder(value);
+    setSearchParams({ sort_by, order: value });
+  }
 
   return loading ? (
     <Loading />
@@ -27,37 +43,17 @@ export default function ArticlesByTopic() {
     <section className="text-center">
       <label>
         Sort By
-        <select
-          onChange={({ target: { value } }) => {
-            setSearchParams({ sort_by: value });
-          }}
-        >
-          <option name="none"></option>
-          <option name="Date" value="created_at">
-            Date
-          </option>
-          <option name="Comment Count" value="comment_count">
-            Comment Count
-          </option>
-          <option name="Votes" value="votes">
-            Votes
-          </option>
+        <select name="sort_by" value={sort_by} onChange={handleSortChange}>
+          <option value="created_at">Date</option>
+          <option value="comment_count">Comment Count</option>
+          <option value="votes">Votes</option>
         </select>
       </label>
       <label>
         Sort By
-        <select
-          onChange={({ target: { value } }) => {
-            setSearchParams({ order: value });
-          }}
-        >
-          <option name="none"></option>
-          <option name="desc" value="desc">
-            Desc
-          </option>
-          <option name="asc" value="asc">
-            Asc
-          </option>
+        <select name="order" value={order} onChange={handleOrderChange}>
+          <option value="desc">Desc</option>
+          <option value="asc">Asc</option>
         </select>
       </label>
       {/* <ViewProvider> */}
