@@ -14,6 +14,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="*" element={<ErrorPage />} />
+        <Route path="/" element={<Articles />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="articles/:article_id" element={<SingleArticle />} />
         <Route path="topics/:topic" element={<Articles />} />
