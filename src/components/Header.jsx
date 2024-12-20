@@ -23,11 +23,11 @@ export default function Header() {
   return (
     <header className="sticky top-0 bg-inherit p-3 px-2 border-b border-black flex flex-row justify-between">
       <div className="flex flex-row justify-center items-center">
-        <Link to={"/articles"}>
+        <Link to="/articles">
           <img src={NCNlogo} alt="NCN logo" className="sm:size-14 w-24" />
         </Link>
         <div className="mx-2 w-40 text-sm">
-          <p>"Modern news delivered responsively"</p>
+          <p>"Modern news, delivered responsively"</p>
         </div>
       </div>
       <form
@@ -44,7 +44,7 @@ export default function Header() {
               placeholder="Enter your username"
               onChange={handleChange}
               value={login}
-              className="p-0.5 sm:w-48 w-[9.8rem] border border-blue-400 text-sm sm:text-base mb-2 sm:mr-2"
+              className="rounded-lg p-0.5 sm:w-48 w-[9.8rem] border border-blue-200 text-sm sm:text-base mb-2 sm:mr-2"
             />
           )}
         </label>

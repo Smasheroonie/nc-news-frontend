@@ -14,6 +14,7 @@ export default function CommentsSection({ articleId }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    setLoading(true);
     setError(null);
     setDeleted(false);
     fetchComments(articleId).then((commentsData) => {
@@ -52,14 +53,14 @@ export default function CommentsSection({ articleId }) {
     <div className="flex flex-col items-center">
       <form onSubmit={handleSubmit}>
         {user ? (
-          <label className="flex gap-2">
+          <label className="flex gap-2" htmlFor="comment-input">
             <textarea
               id="comment-input"
               onChange={handleChange}
               value={newComment}
               placeholder="Add a comment"
               required
-              className="border rounded-xl py-1 px-2 m-auto mb-1 h-[44px] min-h-[44px] max-h-96 min-w-56 max-w-[1000px]"
+              className="border rounded-xl py-1 px-2 m-auto mb-1 h-11 min-h-11 max-h-96 min-w-56 sm:w-96"
             >
               {newComment}
             </textarea>

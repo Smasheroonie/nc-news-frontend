@@ -6,7 +6,9 @@ const newsApi = axios.create({
 
 export const fetchArticles = (topic, sortBy, order) => {
   return newsApi
-    .get("/articles", { params: { topic: topic, sort_by: sortBy, order: order } })
+    .get("/articles", {
+      params: { topic: topic, sort_by: sortBy, order: order },
+    })
     .then(({ data: { articles } }) => {
       return articles;
     });
@@ -15,6 +17,16 @@ export const fetchArticles = (topic, sortBy, order) => {
 export const fetchArticleById = (articleId) => {
   return newsApi.get(`/articles/${articleId}`).then(({ data: { article } }) => {
     return article;
+  });
+};
+
+export const postArticle = ({ user, title, topic, imgUrl, body }) => {
+  return newsApi.post("/articles", {
+    author: user,
+    title: title,
+    topic: topic,
+    body: body,
+    article_img_url: imgUrl,
   });
 };
 

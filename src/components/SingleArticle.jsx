@@ -36,7 +36,7 @@ export default function SingleArticle() {
   ) : (
     <article className="flex flex-col items-center m-auto py-10 px-2 gap-2 min-h-dvh">
       <h1 className="font-bold text-3xl pb-1 max-w-[750px]">{article.title}</h1>
-      <hr className="w-1/3"/>
+      <hr className="w-1/3" />
       <div className="flex max-w-[750px] flex-row flex-wrap w-full m-1 pr-2.5 justify-between">
         <p>By: {article.author}</p>
         <p>Topic: {article.topic}</p>
@@ -50,7 +50,7 @@ export default function SingleArticle() {
         className="w-2/3 min-w-80 max-w-[700px]"
       />
       <p className="my-4 max-w-[1000px]">{article.body}</p>
-      <hr className="w-1/3"/>
+      <hr className="w-1/3" />
       <CommentsSection articleId={article.article_id} />
     </article>
   );

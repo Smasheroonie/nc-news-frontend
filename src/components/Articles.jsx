@@ -4,6 +4,7 @@ import Loading from "./Loading";
 import { fetchArticles } from "../../utils/api";
 import ArticlesList from "./ArticlesList";
 import ErrorPage from "./ErrorPage";
+import { formatTopic } from "../../utils/utils";
 
 // import { ViewProvider } from "../context/View";
 
@@ -66,7 +67,7 @@ export default function ArticlesByTopic() {
                 name="sort_by"
                 value={sort_by}
                 onChange={handleSortChange}
-                className="h-8 sm:h-auto"
+                className="border rounded-xl h-8 sm:h-auto"
               >
                 <option value="created_at">Date (default)</option>
                 <option value="comment_count">Comment Count</option>
@@ -79,7 +80,7 @@ export default function ArticlesByTopic() {
                 name="order"
                 value={order}
                 onChange={handleOrderChange}
-                className="h-8 sm:h-auto"
+                className="border rounded-xl h-8 sm:h-auto"
               >
                 <option value="desc">Desc (default)</option>
                 <option value="asc">Asc</option>
@@ -88,7 +89,7 @@ export default function ArticlesByTopic() {
           </div>
           <button
             onClick={handleReset}
-            className="m-auto px-1 h-10 sm:mt-1 sm:h-auto sm:mx-2 text-base font-normal bg-blue-300 rounded-lg hover:bg-blue-400 active:bg-blue-200 hover:transition-colors ease-in-out duration-200"
+            className="m-auto px-1 h-10 sm:mt-1 sm:h-auto sm:mx-2 text-base font-normal bg-blue-300 rounded-lg sm:p-0.5 hover:bg-blue-400 active:bg-blue-200 hover:transition-colors ease-in-out duration-200"
           >
             Reset Filters
           </button>
@@ -97,7 +98,7 @@ export default function ArticlesByTopic() {
         {/* <ViewProvider> */}
         {topic ? (
           <h2 className="font-bold text-2xl pt-2 pb-1 underline">
-            {topic.toUpperCase()}
+            {formatTopic(topic)}
           </h2>
         ) : null}
         <ArticlesList articles={articles} />
