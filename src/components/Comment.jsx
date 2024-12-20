@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/User";
 import { deleteComment } from "../../utils/api";
 import { formatDate } from "../../utils/utils";
+import CommentVotesCounter from "./CommentVotesCounter";
 
 export default function Comment({ comment, setDeleted }) {
   const { user } = useContext(UserContext);
@@ -23,9 +24,10 @@ export default function Comment({ comment, setDeleted }) {
       </div>
       <p className="p-2">{comment.body}</p>
       <div className="flex justify-between px-1">
-        <p className="font-light">
-          Votes: <span className="font-semibold">{comment.votes}</span>
-        </p>
+        <CommentVotesCounter
+          votes={comment.votes}
+          commentId={comment.comment_id}
+        />
         {!error ? null : <p className="text-red-600">{error}</p>}
         {comment.author === user ? (
           <button
@@ -33,7 +35,7 @@ export default function Comment({ comment, setDeleted }) {
             onClick={handleClick}
             className="bg-red-200 rounded-lg p-0.5 hover:bg-red-500 active:bg-red-400 hover:transition-colors ease-in-out duration-200"
           >
-            DELETE
+            Delete
           </button>
         ) : null}
       </div>
