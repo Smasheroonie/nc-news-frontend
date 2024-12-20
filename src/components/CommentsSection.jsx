@@ -53,7 +53,10 @@ export default function CommentsSection({ articleId }) {
     <div className="flex flex-col items-center">
       <form onSubmit={handleSubmit}>
         {user ? (
-          <label className="flex gap-2" htmlFor="comment-input">
+          <label
+            className="flex gap-2 flex-wrap-reverse"
+            htmlFor="comment-input"
+          >
             <textarea
               id="comment-input"
               onChange={handleChange}
@@ -66,7 +69,7 @@ export default function CommentsSection({ articleId }) {
             </textarea>
             <button
               type="submit"
-              className="shadow-sm bg-gray-300 rounded-xl p-1 hover:bg-green-400 active:bg-green-300 cursor-pointer max-h-[44px] hover:transition-colors ease-in-out duration-200"
+              className="shadow-sm bg-gray-300 rounded-xl p-1 mb-1 hover:bg-green-400 active:bg-green-300 cursor-pointer max-h-[44px] hover:transition-colors ease-in-out duration-200"
             >
               Submit
             </button>

@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/User";
-import { patchVotes } from "../../utils/api";
+import { patchCommentVotes } from "../../utils/api";
 import { GoThumbsup } from "react-icons/go";
 
-export default function VotesCounter({ votes, articleId }) {
+export default function CommentVotesCounter({ votes, commentId }) {
   const { user } = useContext(UserContext);
   const [votesCount, setVotesCount] = useState(0);
   const [voted, setVoted] = useState(false);
@@ -18,7 +18,7 @@ export default function VotesCounter({ votes, articleId }) {
       setVotesCount((currVotesCount) => currVotesCount + 1);
       setVoted(true);
       setError(null);
-      patchVotes(1, articleId).catch((err) => {
+      patchCommentVotes(1, commentId).catch((err) => {
         setVotesCount((currVotesCount) => currVotesCount - 1);
         setError("Vote unsuccessful, try again.");
         setVoted(false);
@@ -27,7 +27,7 @@ export default function VotesCounter({ votes, articleId }) {
       setVotesCount((currVotesCount) => currVotesCount - 1);
       setVoted(false);
       setError(null);
-      patchVotes(-1, articleId).catch((err) => {
+      patchCommentVotes(-1, commentId).catch((err) => {
         setVotesCount((currVotesCount) => currVotesCount + 1);
         setError("Vote was not removed, try again.");
         setVoted(true);

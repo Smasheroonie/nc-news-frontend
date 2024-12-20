@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react";
-import { fetchArticleById } from "../../utils/api";
-import { useParams } from "react-router";
+import { useContext, useEffect, useState } from "react";
+import { deleteArticle, fetchArticleById } from "../../utils/api";
+import { useNavigate, useParams } from "react-router";
 import Loading from "./Loading";
 import VotesCounter from "./VotesCounter";
 import CommentsSection from "./CommentsSection";
 import { formatDate } from "../../utils/utils";
 import ErrorPage from "./ErrorPage";
+import { UserContext } from "../context/User";
 
 export default function SingleArticle() {
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [deleteError, setDeleteError] = useState(null);
 
   useEffect(() => {
     setError(null);
@@ -28,6 +32,15 @@ export default function SingleArticle() {
         });
       });
   }, []);
+
+  const handleClick = ({ target: { value } }) => {
+    setDeleteError(null);
+    deleteArticle(value)
+      .then(() => navigate("/articles"))
+      .catch((err) => {
+        setDeleteError("Article not deleted, try again.");
+      });
+  };
 
   return loading ? (
     <Loading />
@@ -49,6 +62,18 @@ export default function SingleArticle() {
         src={article.article_img_url}
         className="w-2/3 min-w-80 max-w-[700px]"
       />
+      {article.author === user ? (
+        <div className="w-1/2 flex justify-end">
+          {deleteError ? <p>{deleteError}</p> : null}
+          <button
+            value={article.article_id}
+            onClick={handleClick}
+            className="bg-red-200 rounded-lg p-0.5 hover:bg-red-500 active:bg-red-400 hover:transition-colors ease-in-out duration-200"
+          >
+            Delete Post
+          </button>
+        </div>
+      ) : null}
       <p className="my-4 max-w-[1000px]">{article.body}</p>
       <hr className="w-1/3" />
       <CommentsSection articleId={article.article_id} />
